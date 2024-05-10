@@ -22,7 +22,7 @@ namespace RazorPagesTestAppTF.Pages.User
 
 		public async Task<IActionResult> OnGetAsync()
         {
-            var users = await _db.Users.ToListAsync();
+            var users = await _db.ApplicationUser.ToListAsync();
             var roles = await _db.Roles.ToListAsync();  
             var userRoles = await _db.UserRoles.ToListAsync();
 
@@ -34,6 +34,8 @@ namespace RazorPagesTestAppTF.Pages.User
 
                 userViewModel.Id = user.Id;
                 userViewModel.UserName = user.UserName;
+                userViewModel.FirstName = user.FirstName; 
+                userViewModel.LastName = user.LastName;
                 userViewModel.Role = roles.FirstOrDefault(r => r.Id == userRole.RoleId).Name;
                 userViewModel.EmailConfirmed = user.EmailConfirmed;
                 userViewModel.TwoFactorEnabled = user.TwoFactorEnabled;

@@ -15,6 +15,8 @@
 		<table class="table table-striped border">
 			<tr>
 				<th>Username</th>
+				<th>FirstName</th>
+				<th>LastName</th>
 				<th>Role</th>
 				<th>Email confirmed</th>
 				<th>Two factor enabled</th>
@@ -25,13 +27,15 @@
 			{
 				<tr>
 					<td>@item.UserName</td>
+					<td>@item.FirstName</td>
+					<td>@item.LastName</td>
 					<td>@item.Role</td>
 					<td>@item.EmailConfirmed</td>
 					<td>@item.TwoFactorEnabled</td>
 					<td>
 						<div class="text-center">
 							<form>
-								<a asp-page="Edit" asp-route-userId="@item.Id" class="btn btn-info text-white" style="cursor:pointer">
+								<a asp-page="/User/EditUser" asp-route-userId="@item.Id" class="btn btn-info text-white" style="cursor:pointer">
 									Edit
 								</a>
 
