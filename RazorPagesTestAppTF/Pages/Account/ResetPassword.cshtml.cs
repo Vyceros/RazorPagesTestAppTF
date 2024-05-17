@@ -9,15 +9,19 @@ namespace RazorPagesTestAppTF.Pages.Account
     {
         private readonly UserManager<IdentityUser> _userManager;
 
-		public ResetPasswordModel(UserManager<IdentityUser> userManager)
-		{
-			_userManager = userManager;
-		}
-
-		[BindProperty]
-        public ResetPasswordViewModel Input { get; set; }
-        public void OnGet()
+        public ResetPasswordModel(UserManager<IdentityUser> userManager)
         {
+            _userManager = userManager;
+        }
+
+        [BindProperty]
+        public ResetPasswordViewModel Input { get; set; }
+        public void OnGet(string code)
+        {
+            Input = new ResetPasswordViewModel
+            {
+                Code = code
+            };
         }
 
         public async Task<IActionResult> OnPostAsync()

@@ -70,12 +70,13 @@ namespace RazorPagesTestAppTF.Pages.Account
 
             if (ModelState.IsValid)
             {
-                var user = Activator.CreateInstance<ApplicationUser>();
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
-                await _userEmailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-
-                user.FirstName = Input.FirstName;
-                user.LastName = Input.LastName;
+                var user = new ApplicationUser
+                {
+                    UserName = Input.Email,
+                    Email = Input.Email,
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName
+                };
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
@@ -92,7 +93,7 @@ namespace RazorPagesTestAppTF.Pages.Account
                 }
 
                 var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                var callBackUrl = Url.Page("/Account/ConfirmEmail", pageHandler: null, values: new { userId = user.Id, code = code }, protocol: Request.Scheme);
+                var callBackUrl = Url.Page("/Account/ConfirmEmail", pageHandler: null, values: new { userId = user.Id, Code = code }, protocol: Request.Scheme);
 
                 await _emailSender.SendEmailAsync(Input.Email,
                     "Confirm your account - Identity Manager",
